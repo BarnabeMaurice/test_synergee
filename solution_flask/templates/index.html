@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche Dichotomique</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+    <h2 class="mb-4">Recherche dans une range</h2>
+
+    <!-- affichage des erreurs si il y en a -->
+    {% if errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!--le formulaire stock les entrées précédentes-->
+    <form method="POST" class="mt-4">
+        <div class="mb-3">
+            <label class="form-label">Nombre d'entrées numériques :</label>
+            <input type="number" name="num_count" class="form-control" value="{{ form_data.get('num_count', '') }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Plage de nombres :</label>
+            <input type="number" name="num_range" class="form-control" value="{{ form_data.get('num_range', '') }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre de chaînes de caractères :</label>
+            <input type="number" name="str_count" class="form-control" value="{{ form_data.get('str_count', '') }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Début de la plage de recherche :</label>
+            <input type="number" name="search_start" class="form-control" value="{{ form_data.get('search_start', '') }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Fin de la plage de recherche :</label>
+            <input type="number" name="search_end" class="form-control" value="{{ form_data.get('search_end', '') }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
+    <!-- afficher les Résultats si il y en a -->
+    {% if results %}
+        <h3 class="mt-5">Résultats :</h3>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Chaînes associées</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for num, strings in results.items() %}
+                    <tr>
+                        <td>{{ num }}</td>
+                        <td>{{ strings|join(', ') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+</body>
+</html>
